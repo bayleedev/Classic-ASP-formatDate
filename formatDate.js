@@ -34,7 +34,6 @@ function formatDate(format) {
 			shortDigit = cardinal % 10;
 			longDigit = cardinal % 100;
 			if ([1,2,3].in_array(shortDigit) && ![11, 12, 13].in_array(cardinal % 100)) {
-				console.log(shortDigit, cardinal, cardinal % 100);
 				return ['st', 'nd', 'rd'][shortDigit - 1];
 			}
 			return 'th';
