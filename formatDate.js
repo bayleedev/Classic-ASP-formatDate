@@ -1,20 +1,19 @@
 /**
- *	Function: formatDate
+ * Function: formatDate
  *
- *	Will help in formatting date's similar to PHP's Date Function.
- *	Does not have support for:
- *		- 'u' Microseconds - No JS support
- *		- 'e' Timezone identifier
- *		- 'I' Whether or not the date is in daylight saving time
+ * Will help in formatting date's similar to PHP's Date Function.
+ * Does not have support for:
+ *   - 'u' Microseconds - No JS support
+ *   - 'e' Timezone identifier
+ *   - 'I' Whether or not the date is in daylight saving time
  *
- *	@author Blaine Schmeisser <BlaineSch@gmail.com>
- *	@param string format The format you want the date to return as.
- *	@return string The formatted date string.
- *	@version v1.0
- *	@example http://www.BlaineSch.com/378/classic-asp-dates/
-**/
+ * @author Blaine Schmeisser <BlaineSch@gmail.com>
+ * @param string format The format you want the date to return as.
+ * @return string The formatted date string.
+ * @version v1.0
+ * @example http://www.BlaineSch.com/378/classic-asp-dates/
+ */
 function formatDate(format) {
-	// Variables
 	var format = new String(format),
 		thisDate,
 		formatLen = format.length,
@@ -24,6 +23,12 @@ function formatDate(format) {
 		tNum,
 		tDays = [7,1,2,3,4,5,6],
 		toMonday = [6,0,1,2,3,4,5],
+		/**
+		 * Generates the ordinal of a number.
+		 *
+		 * @param  int    fn_day  Day of the year.
+		 * @return string         One of: 'st', 'nd', 'rd', or 'th'.
+		 */
 		getS = function(fn_day) {
 			cardinal = Math.abs(m);
 			shortDigit = cardinal % 10;
@@ -34,6 +39,12 @@ function formatDate(format) {
 			}
 			return 'th';
 		},
+		/**
+		 * Returns the week based on the given day.
+		 *
+		 * @param  int fn_day Day of the year.
+		 * @return int
+		 */
 		getW = function(fn_day) {
 			// Variables
 			var lastEndWeek, lastBegWeek, thisBegWeek, tNum;
@@ -68,12 +79,12 @@ function formatDate(format) {
 			tNum = '0' + tNum;
 			return tNum.substring(tNum.length-2);
 		},
+		/**
+		 * Returns a number to be an exact length:
+		 * exactLength(1,2) // 01
+		 * exactLength(31,2) // 31
+		 */
 		exactLength = function(num, len) {
-			/*
-				Returns a number to be an exact length:
-				exactLength(1,2) // 01
-				exactLength(31,2) // 31
-			*/
 			var ret;
 			for(var i = 0;i<len;i++) {
 				ret += '0';
@@ -93,11 +104,10 @@ function formatDate(format) {
 	}
 
 	// Loop format
-	/*
-		References:
-			http://www.w3schools.com/jsref/jsref_obj_date.asp
-			http://us2.php.net/manual/en/function.date.php
-	*/
+	/**
+	 * @see  http://www.w3schools.com/jsref/jsref_obj_date.asp
+	 * @see  http://us2.php.net/manual/en/function.date.php
+	 */
 	for(var i = 0;i<formatLen;i++) {
 		switch(format.substring(i, i+1)) {
 			// Day (8 of 8)
@@ -280,4 +290,12 @@ function formatDate(format) {
 		}
 	}
 	return ret;
+}
+Array.prototype.in_array = function in_array(needle) {
+	for (key in this) {
+		if (this[key] === needle) {
+			return true;
+		}
+	}
+	return false;
 }
