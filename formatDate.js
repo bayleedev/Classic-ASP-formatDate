@@ -25,39 +25,14 @@ function formatDate(format) {
 		tDays = [7,1,2,3,4,5,6],
 		toMonday = [6,0,1,2,3,4,5],
 		getS = function(fn_day) {
-			/*
-				Gets the "English ordinal suffix" for any number based on the last 2 digits.
-			*/
-
-			// Variables
-			var fnll, fndl;
-
-			// Get date
-			if(fn_day) {
-				fn_day = parseInt(fn_day);
-			} else {
-				fn_day = parseInt(new Date().getDate());
+			cardinal = Math.abs(m);
+			shortDigit = cardinal % 10;
+			longDigit = cardinal % 100;
+			if ([1,2,3].in_array(shortDigit) && ![11, 12, 13].in_array(cardinal % 100)) {
+				console.log(shortDigit, cardinal, cardinal % 100);
+				return ['st', 'nd', 'rd'][shortDigit - 1];
 			}
-
-			// Convert to string
-			fn_day = new String(fn_day);
-
-			// Last Digit
-			fnll = fn_day.substring(fn_day.length - 1, fn_day.length);
-			// Last Two Digits
-			fndl = fn_day.substring(fn_day.length - 2, fn_day.length);
-
-			// Logic
-			if(fndl >= 11 && fndl <= 13) {
-				return "th";
-			} else if(fnll == 1) {
-				return "st";
-			} else if(fnll == 2) {
-				return "nd";
-			} else if(fnll == 3) {
-				return "rd";
-			}
-			return "th";
+			return 'th';
 		},
 		getW = function(fn_day) {
 			// Variables
